@@ -1,0 +1,106 @@
+We have following ways to get started with a hello world application using  Spring –boot on GCP 
+
+We Can do it with the help of Command Shell 
+
+With the help of VM – Debain based  
+
+With the help of App Engine  
+
+With the help of Google Kubernetes Engine  
+
+Cloud Functions – Serverless programming 
+
+With the help of Cloud Run  
+
+ 
+
+Command Shell 
+
+Create/Clone the helloWorld project 
+
+cd $HOME 
+
+git clone https://github.com/saturnism/jvm-helloworld-by-example 
+
+cd jvm-helloworld-by-example/helloworld-springboot-tomcat 
+
+Build the project  
+
+ Run the Project  
+
+Connect the Project – using web preview on port 8080 
+
+ 
+
+
+ 
+
+
+ 
+
+
+ 
+
+ 
+
+Implementing Hello World using VM 
+
+Cloning  
+
+Building 
+
+Creating a VM 
+
+Enabling  API 
+
+Gcloud services enable compute.googleapis.com 
+
+Creating a VM 
+
+Gcloud compute instances create helloworld  --scopes=cloud-platform –image-family debain-10 –image-project debain-cloud 
+
+Copying File to VM 
+
+Gcloud compute scp target/helloworld.jar helloworld: 
+
+Establishing connection via SSH to VM 
+
+Gcloud compute ssh helloworld 
+
+Updating and installing Open JDK in the VM 
+
+Sudo apt-get update && sudo apt-get install –y openjdk-11-jdk 
+
+Run app in the VM 
+
+Java –jar helloworld.jar 
+
+Exposing the Outcome/Output via browser 
+
+Adding Tag ( Naming  VMs) 
+
+Gcloud compute instances add-tags helloworld –tags= webapp 
+
+Adding FireWall Rule 
+
+Gcloud compute firewall-rules create webapp-rule\ 
+
+--sources-ranges=0.0.0.0/0\ 
+
+--target-tags = webapp\ 
+
+--allow=tcp:8080 
+
+Connection 
+
+Finding the external IP of VM 
+
+Gcloud compute instances list 
+
+Connecting the External Ip on port 8080 
+
+EXTERNAL_IP = $(gcloud compute instances describe helloworld\ 
+
+--format='value(networkINterfaces.acessConfigs[0].natIP') 
+
+Curl http://EXTERNALIP:8080 
